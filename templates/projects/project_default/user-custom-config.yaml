@@ -1,0 +1,10 @@
+default_context:
+    # as we are using dictionary style, the entire dictionary for given key is required
+    author: 
+        full_name:  "Company"
+        email:      "akamlani@company.ai"
+        username:   "akamlani"
+        homepage:   "https://www.arikamlani.com"
+abbreviations:
+    gh: https://github.com/{0}.git
+    bb: https://bitbucket.org/{0}

@@ -1,0 +1,13 @@
+{
+    "python.terminal.activateEnvironment": true,
+    "terminal.integrated.inheritEnv": true,
+
+
+    // "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+    // "python.condaPath": "/path/to/anaconda/bin/conda",
+
+
+    // "[python]": {
+    //     "editor.defaultFormatter": "ms-python.python"
+    // }
+}

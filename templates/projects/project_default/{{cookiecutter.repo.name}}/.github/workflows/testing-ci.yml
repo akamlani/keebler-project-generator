@@ -1,0 +1,40 @@
+name: Testing {ci}
+on: [push]
+# on:
+#   workflow_dispatch
+#   schedule:
+#     - cron: '11 11 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # which python versions to use
+    strategy:
+      matrix:
+        python-version: [3.9]
+    steps:
+      # checkout code from this repo on this container
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      # install targeted python version
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # install vm and dependencies
+      - name: Install dependencies
+        run: |
+          make install
+      # format and check quality
+      - name: Check quality
+        run: |
+          make quality
+      - name: Format code
+        run: |
+          make style
+      - name: Lint with pylint
+        run: |
+          make lint
+      # execute any tests
+      - name: Test with pytest
+        run: |
+          make test

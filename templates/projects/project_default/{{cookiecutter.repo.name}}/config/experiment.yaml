@@ -1,0 +1,36 @@
+# for experiment local directory structure
+experiment:
+  setup:
+    author:   {{cookiecutter.author.full_name}}
+    # change the {name} of the project and or location to configure a different experiment
+    dir:      experiments/snapshots
+    name:     {{cookiecutter.package.name}}
+    # define default tags associated with it
+    tags:     []
+    # is this for 'dev/staging' or 'production'
+    staging:  dev/staging
+    path:     ${experiment.setup.dir}/${experiment.setup.name}
+  runs:
+    path:     ${experiment.setup.path}/runs
+  sources:
+    path:     ${experiment.setup.path}/sources
+    config:   ${experiment.sources.path}/conf
+    data:     ${experiment.sources.path}/data
+    features: ${experiment.sources.path}/featurestore
+  artifacts:
+    path:     ${experiment.setup.path}/artifacts
+    datasets: ${experiment.artifacts.path}/datasets
+    features: ${experiment.artifacts.path}/featurestore
+    models:   ${experiment.artifacts.path}/modelstore
+    eval:     ${experiment.artifacts.path}/evaluationstore
+    ckpts:    ${experiment.artifacts.path}/ckpts
+  reporting:
+    path:     ${experiment.setup.path}/reporting
+    figures:  ${experiment.reporting.path}/figures
+    reports:  ${experiment.reporting.path}/reports
+    logs:     ${experiment.reporting.path}/logs
+    tb:       ${experiment.reporting.path}/tensorboard
+    wandb:    ${experiment.reporting.path}/wandb
+
+
+

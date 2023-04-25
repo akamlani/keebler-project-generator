@@ -1,0 +1,65 @@
+{
+    "author": {
+        "full_name":        "Ari Kamlani",
+        "email":            "akamlani@gmail.com",
+        "username":         "akamlani",
+        "homepage":         "https://www.arikamlani.com"
+    },
+    "module": {
+        "name":             "Keebler",
+        "domain":           "Template",
+        "type":             "Studio",
+        "license":          "MIT",
+        "version":          "0.0.1"
+    },
+    "properties": {
+        "description":      "{{cookiecutter.module.domain}} {{cookiecutter.module.type}} Suite Toolkit",
+        "keywords":         "data, ml, ai, studio suite"
+    },
+    "package": {
+        "name":             "{{ '_'.join([cookiecutter.module.name, cookiecutter.module.domain, cookiecutter.module.type])|lower|replace(' ', '_')  }}",
+        "installer":        "{{ '-'.join([cookiecutter.module.name, cookiecutter.module.domain, cookiecutter.module.type])|lower|replace(' ', '-')  }}"
+    },    
+    "repo": {
+        "host":             "https://github.com",
+        "username":         "{{cookiecutter.author.username}}",
+        "name":             "{{ '-'.join([cookiecutter.module.name, cookiecutter.module.domain, cookiecutter.module.type])|lower|replace(' ', '-')  }}"
+    },
+    "interpreter": {
+        "version":          "3.9",
+        "conda": {
+            "download": {
+                "uri":      "https://repo.anaconda.com/archive/Anaconda3-2023.03-MacOSX-x86_64.sh" 
+            },
+            "install": {
+                "prefix":   "${HOME}/opt/anaconda3"
+            },
+            "env": {
+                "name":     "core.vm.v3_9",
+                "file":     "environment/environment_v3_9.yml"
+            } 
+        }, 
+        "dependencies": {
+            "path":         "{{ '/'.join(['environment', 'dependencies']) }}"
+        }, 
+        "venv": {
+            "dev":          "{{ '/'.join(['~/.venv', '[.dev]',   '-'.join([cookiecutter.package.installer, 'wks']) ]) }}",
+            "prod":         "{{ '/'.join(['~/.venv', '[.prod]',  '-'.join([cookiecutter.package.installer, 'wks']) ]) }}",
+            "test":         "{{ '/'.join(['~/.venv', '[.test]',  '-'.join([cookiecutter.package.installer, 'wks']) ]) }}",
+            "docs":         "{{ '/'.join(['~/.venv', '[.docs]',  '-'.join([cookiecutter.package.installer, 'wks']) ]) }}"
+        }
+    },
+    "dataset": {
+        "template": {
+            "name":         "dataset_template" 
+        }   
+    },
+
+    "_extensions":          ["jinja2_time.TimeExtension", "cookiecutter.extensions.JsonifyExtension", "cookiecutter.extensions.UUIDExtension",
+                             "cookiecutter.extensions.SlugifyExtension", "cookiecutter.extensions.RandomStringExtension"], 
+    "_copy_without_render": [
+        ".github/workflows/*", 
+        ".vscode/*"
+    ]        
+
+}
