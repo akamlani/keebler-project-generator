@@ -1,0 +1,3 @@
+# Exclude SC3009: In POSIX sh, brace expansion is undefined
+# Exclude SC1083: This { is literal. Check expression (missing ;/\n?)?
+exclude=SC3009,SC1083

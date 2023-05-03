@@ -15,12 +15,13 @@ Welcome to {{ cookiecutter.package.name }}'s documentation!
    :caption: Introduction
 
    introduction/introduction
+   usage/quickstart
 
 .. toctree::
    :maxdepth: 2
    :caption: Get started
 
-   get_started/install
+   get_started/installation
    get_started/concepts
    get_started/summary
 

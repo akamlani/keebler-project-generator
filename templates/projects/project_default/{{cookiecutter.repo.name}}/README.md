@@ -17,6 +17,7 @@ cd '{*-template}'
 rm -r $(find . -name '*.egg-info')
 pip uninstall <package_name>
 pip install -e .
+pip install <packaage_name>[data]
 pip install -e ".[all]"
 pip install -e ".[data]"
 ```

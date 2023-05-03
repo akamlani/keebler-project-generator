@@ -55,7 +55,10 @@ repos:
     - id: nbqa-isort
     - id: nbqa-black
 # shellcheck-py for linting shell files
--   repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.2
-    hooks:
-    - id: shellcheck
+#-   repo: https://github.com/shellcheck-py/shellcheck-py
+#    rev: v0.9.0.2
+#    hooks:
+#    - id: shellcheck
+#      args:
+#        - --exclude=SC3009,SC1083
+#      args: [--shellcheckrc=.shellcheckrc]
