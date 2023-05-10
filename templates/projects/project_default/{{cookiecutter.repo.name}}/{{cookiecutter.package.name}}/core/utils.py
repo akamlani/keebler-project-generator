@@ -8,10 +8,10 @@ warnings.simplefilter("ignore")
 
 
 def read_env(root_path: str = ".env") -> dict:
-    """_summary_
+    """read dot environment variables
 
     Args:
-        root_path (str, optional): _description_. Defaults to ".env".
+        root_path (str, optional): name of environment in root path. Defaults to ".env".
 
     Returns:
         dict: key:value of loaded environment variables

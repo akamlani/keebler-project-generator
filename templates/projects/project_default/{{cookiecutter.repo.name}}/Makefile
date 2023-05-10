@@ -20,11 +20,17 @@ ifeq ($(shell basename $(SHELL)), zsh)
 else
 	SHELL := bash
 endif
+# dynamically detect if conda is installed
+ifeq ($(shell which conda),)
+	HAS_CONDA=False
+else
+	HAS_CONDA=True
+endif
 
 
 .PHONY: help info
 help:
-	@echo "Commands  : "  
+	@echo "Commands  : "
 	@echo "download  : downloads a new anaconda distribution"
 	@echo "install   : create an anaconda and virtual environment based on project $(PACKAGE_INSTALL_NAME)"
 	@echo "setup     : executes download and install based on project $(PACKAGE_INSTALL_NAME)"
@@ -32,13 +38,13 @@ help:
 	@echo "clean     : cleans all files or project $(PACKAGE_INSTALL_NAME)"
 	@echo "clean-all : executes clean and removes anaconda, and virtual environments"
 	@echo "test      : execute unit testing"
-	
-info: 
-	@echo "Info      : "  
+
+info:
+	@echo "Info      : "
 	@echo "info      : platform=$(PLATFORM_TYPE), shell=$(SHELL)"
 	@echo "Kernels:  : $$(jupyter kernelspec list)"
 
-#################### Conda Setup 
+#################### Conda Setup
 conda-download:
 	curl $(CONDA_URI) > anaconda.sh
 	chmod +x anaconda.sh
@@ -58,15 +64,15 @@ conda-env-install:
 conda-env-create-from-file:
 	conda env create -f $(ENV_FILE)
 
-conda-env-remove: 
-	conda remove -n $(ENV_NAME) --all 
+conda-env-remove:
+	conda remove -n $(ENV_NAME) --all
 
-#################### Create and Install Dependencies on Virtual Environment 
-.PHONY: build venv 
+#################### Create and Install Dependencies on Virtual Environment
+.PHONY: build venv
 build:
 	python setup.py build
 
-venv: 
+venv:
 	source $$(conda info --base)/etc/profile.d/conda.sh && 					\
 	conda activate $(ENV_NAME) &&											\
 	python -m venv $(VENV_PATH) &&											\
@@ -90,11 +96,11 @@ venv-install: venv
 	pre-commit autoupdate
 
 
-venv-remove: 
+venv-remove:
 	rm -rf $(VENV_PATH)
 
 #################### Testing and Quality Checks
-.PHONY: test 
+.PHONY: test
 test:
 	python -m pytest -vvv  --cov=$(PACKAGE_NAME) tests/
 
@@ -104,7 +110,7 @@ quality:
 	isort --check-only *.py
 
 .PHONY: style
-style: 
+style:
 	black   *.py
 	isort   *.py
 	flake8  --statistics *.py
@@ -113,15 +119,16 @@ style:
 lint:
 	pylint *.py
 
-#################### Cleaning 
-.PHONY: clean 
+#################### Cleaning
+.PHONY: clean
 clean:
 #	jupyter kernelspec remove $(PACKAGE_NAME)
 	pip uninstall $(PACKAGE_INSTALL_NAME)
-	find . | grep -E ".DS_Store" | xargs rm -rf
+	find . -type f -name "*.DS_Store" -ls -delete
 	find . | grep -E ".egg-info" | xargs rm -rf
 	find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
 	find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
+	find . | grep -E ".pytest_cache" | xargs rm -rf
 
 clean-all: clean
 	rm -f ./anaconda.sh
@@ -129,8 +136,8 @@ clean-all: clean
 	rm -rf $(VENV_PATH)
 #	rm -rf ~/.conda
 
-.PHONY: download install setup format 
-download:   conda-download 
-install:    conda-env-install venv-install 
+.PHONY: download install setup format
+download:   conda-download
+install:    conda-env-install venv-install
 setup: 		conda-download conda-env-install venv-install
-format:     quality style 
+format:     quality style

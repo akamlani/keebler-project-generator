@@ -9,7 +9,9 @@ from omegaconf import DictConfig, OmegaConf
 from ..core.io.reader import read_hydra
 
 
-def configure_logging(file_path: str, prefix: str = None, level: int = None, **kwargs) -> None:
+def configure_logging(
+    file_path: str, prefix: str = None, level: int = None, **kwargs
+) -> None:
     """
     Perform logging configuration
     :param file_path: file path where logging file is located (*.logging.yaml)
