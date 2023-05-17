@@ -29,4 +29,5 @@ def configure_logging(
     # configure logger, create logger/formatter to the handler via dictConfig(*.yaml) instead of fileConfig(*.conf)
     logger_config: Dict[str, Any] = OmegaConf.to_container(logger_config, resolve=True)
     logging.config.dictConfig(logger_config)
+    # default coloredlogs: TBD check if RichHandler not enabled
     coloredlogs.install(level=level) if level else coloredlogs.install()

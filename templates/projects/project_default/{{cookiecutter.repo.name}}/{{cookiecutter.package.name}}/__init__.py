@@ -9,8 +9,6 @@ from .infra.trace import configure_logging
 from .version import __version__, watermark
 
 root_logger = logging.getLogger("root")
-# change the default channel handdler: dependent upon configuration file
-root_logger.handlers[0] = RichHandler(markup=True)
 
 
 def setup_configure() -> DictConfig:
