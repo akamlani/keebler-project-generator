@@ -1,7 +1,8 @@
 # for notebooks
-nbval==0.9.6
+nbval==0.9.6                            # e.g, check that cells always render to same value 
 nbqa==1.2.3
 nbstripout==0.5.0                       # clear All output commands
 notebook==6.5.4                         # jupyter notebook
 jupyterlab==3.6.3
 jupyter_contrib_nbextensions==0.7.0 
+
